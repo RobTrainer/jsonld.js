@@ -1226,6 +1226,20 @@ jsonld.documentLoader = function(url, callback) {
   });
 };
 
+const _documentLoaders = {
+  normal: [],
+  test: null
+};
+
+jsonld.setDocumentLoader = function(loader, options) {
+  options = options || {};
+  // TODO: validate loader as function/Promise
+  if(!options.test) {
+    return _documentLoaders.normal.unshift(loader);
+  }
+  _documentLoaders.test = loader;
+};
+
 /**
  * Deprecated default document loader. Use or override jsonld.documentLoader
  * instead.
